@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - APS-DAMBAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #333;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #f5e50a;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .about-section h1 {
+            font-size: 36px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .about-section img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        /* Mission and Vision Section */
+        .mission-vision {
+            background-color: #1802e0;
+            padding: 40px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .mission-vision h2 {
+            font-size: 28px;
+            color: #ebe7e7;
+            margin-bottom: 20px;
+        }
+
+        .mission-vision p {
+            font-size: 18px;
+            color: #fffdfd;
+            line-height: 1.6;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .team-section h2 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .team {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            background-color: #fff;
+            width: 250px;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 20%;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .team-member h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            color: #777;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="abooutus.html">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Admissions</a>
+    </nav>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <h1><i class="fas fa-info-circle"></i> About APS-DAMBAI</h1>
+        <p>
+            APS-DAMBAI is a premier educational institution dedicated to providing quality education to students in a nurturing environment. Our school strives to develop not just academic excellence but also personal growth, creativity, and leadership skills in each student.
+        </p>
+        <img src="logo.jpg" alt="School Image">
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section class="mission-vision">
+        <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
+        <p>
+            Our mission is to empower students with the knowledge, skills, and values necessary to succeed in life and contribute positively to society. We aim to create a stimulating learning environment that fosters intellectual curiosity, creativity, and critical thinking.
+        </p>
+        <h2>Our Vision</h2>
+        <p>
+            To be a leading institution that transforms the lives of students through a holistic approach to education, ensuring they become responsible global citizens and leaders of tomorrow.
+        </p>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2><i class="fas fa-users"></i> Meet Our Team</h2>
+        <div class="team">
+            <div class="team-member">
+                <img src="pastor.jpg" alt="Team Member 1">
+                <h3>Ps David Boateng</h3>
+                <p>Headmaster</p>
+            </div>
+            <div class="team-member">
+                <img src="Leo.jpg" alt="Team Member 2">
+                <h3>Mr Awuriki Simon</h3>
+                <p>Ass. Headmaster</p>
+            </div>
+            <div class="team-member">
+                <img src="charity.jpg" alt="Team Member 3">
+                <h3>Miss Brukum Charity</h3>
+                <p>Accountant</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

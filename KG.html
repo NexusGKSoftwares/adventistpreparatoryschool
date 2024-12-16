@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Term Two Bill SMS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, button, select {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Term Two Bill SMS</h2>
+        <form id="smsForm" onsubmit="event.preventDefault(); confirmAndSend();">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" required oninput="this.value = this.value.toUpperCase();">
+
+            <label for="parentPhone">Parent Phone:</label>
+            <input type="tel" id="parentPhone" required>
+
+            <label for="teacherPhone">Teacher Phone:</label>
+            <input type="tel" id="teacherPhone" required>
+
+            <label for="class-selection">Class:</label>
+            <select id="class-selection" required>
+                <option value="KG1">KG 1</option>
+                <option value="KG2">KG 2</option>
+            </select>
+
+            <label for="arrears">Arrears (if any):</label>
+            <input type="number" id="arrears" placeholder="Enter arrears" value="0" min="0">
+
+            <button type="submit">Preview SMS</button>
+        </form>
+        <p class="success" id="successMessage" style="display: none;"></p>
+    </div>
+
+    <script>
+        function confirmAndSend() {
+            // Gather form inputs
+            const studentName = document.getElementById('studentName').value;
+            const parentPhone = document.getElementById('parentPhone').value;
+            const teacherPhone = document.getElementById('teacherPhone').value;
+            const selectedClass = document.getElementById('class-selection').value;  // Fixed the ID to match HTML
+            const arrears = parseFloat(document.getElementById('arrears').value) || 0;  // Get arrears value (default 0)
+            const hiddenPhone = "0533366793";
+            const resumptionDate = "7th January, 2025";
+
+            // Fixed fees structure for KG1, KG2
+            const tuition = 110;
+            const pta = 10;
+            const toiletries = 25;  // Toiletries fee
+            const extraClasses = 10;
+            const exams = 10;
+            const workbook = 50;  // Workbook fee (can be modified)
+
+            // Calculate total fees including arrears
+            const totalFees = tuition + pta + toiletries + extraClasses + exams + workbook + arrears;
+
+            // SMS message for parent and teacher
+            const message = `Term Two Bill Notice:\nStudent Name: ${studentName}\nClass: ${selectedClass}\nTuition: GHS ${tuition}\nPTA: GHS ${pta}\nToiletries: GHS ${toiletries}\nWorkbook: GHS ${workbook}\nExtra Classes: GHS ${extraClasses}\nExams: GHS ${exams}\nArrears: GHS ${arrears}\nTotal Fees: GHS ${totalFees}\nResumption Date: ${resumptionDate}`;
+
+            // Preview SMS details before sending
+            const confirmation = confirm(`Preview SMS:\n\n${message}\n\nDo you want to send this SMS?`);
+
+            if (confirmation) {
+                // Success message for hidden phone
+                const timestamp = new Date().toLocaleString();
+                const hiddenMessage = `SMS Sent Successfully:\nStudent Name: ${studentName}\nDate & Time: ${timestamp}`;
+
+                // SMS API details
+                const apiKey = "aXJsQ25aWWxjRWx2QmRZcmR6SXU";
+                const senderId = "APS-DAMBAI";
+
+                // Function to send SMS
+                function sendSMS(phoneNumber, smsContent) {
+                    return fetch(`https://sms.arkesel.com/sms/api?action=send-sms&api_key=${apiKey}&to=${phoneNumber}&from=${senderId}&sms=${encodeURIComponent(smsContent)}`)
+                        .then(response => response.json())
+                        .then(data => console.log(`SMS sent to ${phoneNumber}:`, data))
+                        .catch(error => console.error(`Error sending SMS to ${phoneNumber}:`, error));
+                }
+
+                // Send SMS to parent, teacher, and hidden number
+                Promise.all([
+                    sendSMS(parentPhone, message),
+                    sendSMS(teacherPhone, message),
+                    sendSMS(hiddenPhone, hiddenMessage)
+                ])
+                .then(() => {
+                    // Display success message
+                    document.getElementById('successMessage').textContent = "SMS sent successfully to Parent, Teacher, and Hidden Number.";
+                    document.getElementById('successMessage').style.display = "block";
+                    document.getElementById('smsForm').reset();
+                })
+                .catch(() => {
+                    alert("Failed to send SMS. Please try again.");
+                });
+            }
+        }
+    </script>
+</body>
+</html>

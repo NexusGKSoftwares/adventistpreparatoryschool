@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APS-DAMBAI Term Bill Form</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 100vh; background-color: #f7f7f7; padding: 20px; }
+        .container { width: 100%; max-width: 1000px; background-color: #ffffff; padding: 20px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border-radius: 8px; }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; text-align: center; border: 1px solid #ddd; }
+        th { background-color: #3498db; color: white; font-weight: bold; }
+        td { background-color: #f2f2f2; }
+        input[type="text"], input[type="number"], input[type="tel"], input[type="date"] { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #3498db; color: white; padding: 12px 20px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+        button:hover { background-color: #2980b9; }
+        .btn-group { text-align: center; margin-top: 20px; }
+        .btn-group button { margin: 0 10px; }
+        .hidden { display: none; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script>
+        // Function to add a row for a new student
+        function addStudentRow() {
+            const table = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
+            const row = table.insertRow();
+            
+            // Create input fields for Name, Arrears, PTA Fees, Extra Classes, Current Fees, and Total Fees
+            const fields = ['Name', 'Arrears', 'PTA Fees', 'Extra Classes', 'Current Fees'];
+            fields.forEach((field, i) => {
+                const cell = row.insertCell(i);
+                const input = document.createElement('input');
+                input.type = (field === 'Name') ? 'text' : 'number';
+                input.classList.add('input-field');
+                if (field !== 'Name') {
+                    input.oninput = function() { calculateTotalFees(row); };  // Recalculate total on input
+                }
+                cell.appendChild(input);
+            });
+
+            // Add the Total Fees column and make it readonly
+            const totalCell = row.insertCell(5);
+            const totalInput = document.createElement('input');
+            totalInput.type = 'text';
+            totalInput.setAttribute('readonly', true);
+            totalInput.classList.add('input-field');
+            totalCell.appendChild(totalInput);
+        }
+
+        // Function to calculate total fees for each student
+        function calculateTotalFees(row) {
+            const arrears = parseFloat(row.cells[1].children[0].value) || 0;
+            const ptaFees = parseFloat(row.cells[2].children[0].value) || 0;
+            const extraClasses = parseFloat(row.cells[3].children[0].value) || 0;
+            const currentFees = parseFloat(row.cells[4].children[0].value) || 0;
+            const totalFees = arrears + ptaFees + extraClasses + currentFees;
+
+            row.cells[5].children[0].value = totalFees.toFixed(2);  // Update total fees cell
+        }
+
+        // Function to download the table as a PDF
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Grab table content and format it for PDF
+            const table = document.getElementById("studentsTable");
+            const rows = table.querySelectorAll('tbody tr');
+            
+            let finalY = 10;
+            doc.setFontSize(12);
+
+            // Table Header
+            doc.text('APS-DAMBAI Term Bill Form', 10, finalY);
+            finalY += 10;
+            doc.autoTable({ 
+                html: '#studentsTable',
+                startY: finalY, 
+                styles: { fontSize: 10, cellPadding: 2 }
+            });
+
+            // Download PDF
+            doc.save('student_bills.pdf');
+        }
+
+        // Function to download the table as an Excel file
+        function downloadExcel() {
+            const table = document.getElementById("studentsTable");
+            const wb = XLSX.utils.table_to_book(table, {sheet:"Sheet1"});
+            XLSX.writeFile(wb, "Student_Bills.xlsx");
+        }
+
+        // Automatically add 15 rows for default entries
+        window.onload = function() {
+            for (let i = 0; i < 15; i++) {
+                addStudentRow();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>APS-DAMBAI Term Bill Form</h2>
+
+        <!-- Table for Multiple Students -->
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Arrears</th>
+                    <th>PTA Fees</th>
+                    <th>Extra Classes</th>
+                    <th>Current Fees</th>
+                    <th>Total Fees</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic Student Rows will be added here -->
+            </tbody>
+        </table>
+
+        <div class="btn-group">
+            <button type="button" onclick="addStudentRow()">Add Student</button>
+            <button type="button" onclick="printTable()">Print</button>
+            <button type="button" onclick="downloadPDF()">Download PDF</button>
+            <button type="button" onclick="downloadExcel()">Download Excel</button>
+        </div>
+    </div>
+</body>
+</html>
