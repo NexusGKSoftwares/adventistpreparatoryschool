@@ -9,7 +9,7 @@
     <style>
         /* General Styles */
         body {
-            background-color: #f2f2f2;
+            background-color: #f9f9f9;
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
@@ -18,99 +18,108 @@
 
         /* Navigation Bar */
         nav {
-            background-color: #333;
-            padding: 15px;
+            background-color: #0e055f;
+            color: white;
+            padding: 10px 0;
             position: sticky;
             top: 0;
             width: 100%;
             z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         nav a {
             color: white;
-            margin: 0 15px;
+            margin: 0 20px;
             text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #f39c12;
         }
 
-        h1 {
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(14, 5, 95, 0.7), rgba(14, 5, 95, 0.7)), url('home img.jpg') no-repeat center center/cover;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
             font-size: 48px;
-            color: #333;
-            margin-top: 20px;
-            font-weight: bold;
+            margin: 0;
             text-transform: uppercase;
-            animation: animateHeading 2s ease-in-out infinite alternate;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes animateHeading {
+        @keyframes pulse {
             0% {
-                color: #333;
                 transform: scale(1);
             }
+            50% {
+                transform: scale(1.05);
+            }
             100% {
-                color: #555;
-                transform: scale(1.1);
+                transform: scale(1);
             }
         }
 
-        h2 {
-            font-size: 24px;
+        .hero h2 {
             margin-top: 10px;
-            color: #555;
+            font-size: 20px;
+            font-weight: 400;
         }
 
         .logo {
+            margin: 30px auto;
             max-width: 100px;
-            margin: 20px auto;
-            display: block;
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Clock Style */
+        /* Clock Section */
         .clock {
-            font-size: 40px;
+            font-size: 24px;
             font-weight: bold;
-            color: #ffffff;
-            margin: 20px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            background-color: #0e055f;
+            color: white;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            background-color: #f39c12;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Buttons Container */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
         /* Buttons */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
         .button {
-            width: 150px;
-            height: 150px;
-            margin: 20px;
-            background-color: #333;
+            background-color: #0e055f;
             color: white;
             font-size: 16px;
             font-weight: bold;
             text-align: center;
-            border-radius: 50%;
+            border-radius: 15px;
+            padding: 30px 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .button:hover {
+            transform: translateY(-5px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
@@ -118,81 +127,78 @@
             text-decoration: none;
             color: white;
         }
-        .image-container {
-            position: relative;
-            width: 800px; /* Set the width of the container */
-            height: 400px; /* Set the height of the container */
-            margin: 20px auto; /* Center the container */  
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: #f39c12; 
-        }
-        .image-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensure the image covers the container */
-        }
 
-        /* Colorful Button Variations */
+        /* Button Colors */
         .button.nursery { background-color: #e74c3c; }
         .button.kg { background-color: #3498db; }
         .button.lowerprim { background-color: #2ecc71; }
         .button.upperprim { background-color: #f39c12; }
         .button.secondary { background-color: #9b59b6; }
 
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
     <nav>
         <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="abooutus.html"><i class="fas fa-info-circle"></i> About Us</a>
+        <a href="aboutus.html"><i class="fas fa-info-circle"></i> About Us</a>
         <a href="contact.html"><i class="fas fa-phone"></i> Contact</a>
         <a href="fees.html"><i class="fas fa-user-graduate"></i> Fees Submission</a>
     </nav>
-    <img class="image-container" src="home img.jpg" alt="Logo">
-    <h1>APS-DAMBAI</h1>
-    <img class="logo" src="logo.jpg" alt="Logo">
 
-    <!-- Clock Display -->
+    <section class="hero">
+        <h1>APS-DAMBAI</h1>
+        <h2>Your Gateway to Excellence</h2>
+        <img class="logo" src="logo.jpg" alt="Logo">
+    </section>
+
     <div class="clock" id="clock">00:00:00</div>
-    <div class="container">
-        <div class="button">
-            <i class="fas fa-user-money"></i>
-            <a href="fees.html">Fees Submission</a>
-    </div>
 
-    <!-- Buttons -->
     <div class="container">
         <div class="button nursery">
             <i class="fas fa-child"></i>
-            <a href="nursery.html">NURSERY TERM BILL</a>
+            <a href="nursery.html">Nursery Term Bill</a>
         </div>
         <div class="button kg">
             <i class="fas fa-book"></i>
-            <a href="KG.html">KG TERM BILL</a>
+            <a href="KG.html">KG Term Bill</a>
         </div>
         <div class="button lowerprim">
             <i class="fas fa-book-open"></i>
-            <a href="Lowerprim.html">LOWER PRIMARY TERM BILL</a>
+            <a href="Lowerprim.html">Lower Primary Term Bill</a>
         </div>
         <div class="button upperprim">
             <i class="fas fa-book-reader"></i>
-            <a href="upperprim.html">UPPER PRIMARY TERM BILL</a>
+            <a href="upperprim.html">Upper Primary Term Bill</a>
         </div>
         <div class="button secondary">
             <i class="fas fa-graduation-cap"></i>
-            <a href="jhs.html">SECONDARY TERM BILL</a>
+            <a href="jhs.html">Secondary Term Bill</a>
         </div>
     </div>
-    <section>
-        <div class="clock" id="clock">
-            <h2>PLEASE SUBMIT THE BILLS BEFORE 19TH DECEMBER, 2024 (5:00 PM):</h2>
-            <span id="currentTime"></span>
-    </section>
-    <!-- JavaScript to Update the Clock -->
+
+    <footer>
+        <p>&copy; 2024 APS-DAMBAI. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
     <script>
         function updateClock() {
             const clockElement = document.getElementById('clock');
@@ -203,10 +209,7 @@
             clockElement.textContent = `${hours}:${minutes}:${seconds}`;
         }
 
-        // Update the clock every second
         setInterval(updateClock, 1000);
-
-        // Initial call to display the time immediately
         updateClock();
     </script>
 </body>
