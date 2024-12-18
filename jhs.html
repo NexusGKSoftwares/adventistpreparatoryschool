@@ -89,21 +89,16 @@
 
             <label for="classSelection">Class:</label>
             <select id="class-selection" required>
-                <option value="KG1">KG1</option>
-                <option value="KG2">KG2</option>
-                <option value="B1">B1</option>
-                <option value="B2">B2</option>
-                <option value="B3">B3</option>
                 <option value="B7">B7</option>
                 <option value="B8">B8</option>
-                <option value="B9">Basic 9</option>
+                <option value="B9">B9</option>
             </select>
 
             <label for="arrears">Arrears (if any):</label>
             <input type="number" id="arrears" placeholder="Enter arrears" value="0" min="0">
 
             <label for="nightClass">Night Class (Weekly 5 GHS):</label>
-            <input type="number" id="nightClass" value="0" min="0" max="4" placeholder="Enter number of weeks (0-4)">
+            <input type="number" id="nightClass" value="0" min="0" max="200" placeholder="Enter number of weeks (0-20)">
 
             <button type="submit">Preview SMS</button>
         </form>
@@ -124,7 +119,7 @@
             const resumptionDate = "7th January, 2025";
 
             // Fees structure for different classes
-            const tuition = 120;
+            const tuition = 150;
             const pta = 10;
             const toiletries = 0;
             const extraClasses = 10;
